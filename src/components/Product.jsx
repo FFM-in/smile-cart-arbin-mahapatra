@@ -18,9 +18,8 @@ const Product = () => {
   useEffect(() => {
     try {
       fetchProduct();
-    } catch (Error) {
-      setIsLoading(false);
-      console.error(Error);
+    } catch (error) {
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
