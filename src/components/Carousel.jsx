@@ -1,22 +1,38 @@
+import { useEffect, useState, useRef } from "react";
+
+import classNames from "classnames";
 import { Left, Right } from "neetoicons";
 import { Button } from "neetoui";
-import { useState } from "react";
+
 import { IMAGE_URLS } from "./constants";
-import classNames from "classnames";
 
 const Carousel = ({ imageUrls, title }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const timerRef = useRef;
 
   const handleNextImage = () => {
-    const nextIndex = (currentIndex + 1) % IMAGE_URLS.length;
-    setCurrentIndex(nextIndex);
+    resetTimer();
+    setCurrentIndex(previousIndex => (previousIndex + 1) % IMAGE_URLS.length);
   };
 
   const handlePreviousImage = () => {
-    const previousIndex =
-      (currentIndex - 1 + IMAGE_URLS.length) % IMAGE_URLS.length;
-    setCurrentIndex(previousIndex);
+    resetTimer();
+    setCurrentIndex(
+      previousIndex =>
+        (previousIndex - 1 + IMAGE_URLS.length) % IMAGE_URLS.length
+    );
   };
+
+  const resetTimer = () => {
+    clearInterval(timerRef.current);
+    timerRef.current = setInterval(handleNextImage, 3000);
+  };
+
+  useEffect(() => {
+    timerRef.current = setInterval(handleNextImage, 3000);
+
+    return () => clearInterval(timerRef.current);
+  }, []);
 
   return (
     <div className="flex items-center">
@@ -35,13 +51,13 @@ const Carousel = ({ imageUrls, title }) => {
         <div className="flex flex-row items-center justify-center gap-1">
           {IMAGE_URLS.map((_, index) => (
             <span
+              key={index}
               className={classNames(
                 "neeto-ui-border-black neeto-ui-rounded-full h-3 w-3 cursor-pointer border",
                 {
                   "neeto-ui-bg-black": index === currentIndex,
                 }
               )}
-              key={index}
               onClick={() => setCurrentIndex(index)}
             />
           ))}

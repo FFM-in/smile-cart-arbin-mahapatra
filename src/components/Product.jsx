@@ -1,10 +1,14 @@
+import React from "react";
+
 import { Typography } from "neetoui";
+
 import Carousel from "./Carousel";
 import { IMAGE_URLS } from "./constants";
+
 const Product = () => (
   <div className="px-6 pb-6">
     <div>
-      <Typography style="h1" weight="semibold" className="py-2">
+      <Typography className="py-2" style="h1" weight="semibold">
         Infinix INBOOK
       </Typography>
       <hr className="border-2 border-black" />
@@ -19,7 +23,7 @@ const Product = () => (
         </Typography>
         <Typography>MRP: $395.97</Typography>
         <Typography weight="semibold">Offer price: $374.43</Typography>
-        <Typography weight="semibold" className="text-green-600">
+        <Typography className="text-green-600" weight="semibold">
           6% off
         </Typography>
       </div>
